@@ -1,0 +1,262 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<templates xml:space="preserve">
+    <!-- Modern KPI Card Templates -->
+    
+    <!-- Blue KPI Card Template -->
+    <t t-name="odoo_dynamic_dashboard.ModernKPICardBlue" owl="1">
+        <div class="o_dashboard_block o_dashboard_kpi_card_blue">
+            <div class="o_dashboard_block_header">
+                <h3><t t-esc="props.title"/></h3>
+                <div class="o_dashboard_block_actions">
+                    <button t-if="props.showRefresh" t-on-click="refresh">
+                        <i class="fa fa-refresh"></i>
+                    </button>
+                    <button t-if="props.showSettings" t-on-click="openSettings">
+                        <i class="fa fa-cog"></i>
+                    </button>
+                </div>
+            </div>
+            <div class="o_dashboard_block_content">
+                <div class="o_dashboard_kpi_content">
+                    <div class="o_dashboard_kpi_value">
+                        <t t-esc="props.value"/>
+                    </div>
+                    <div class="o_dashboard_kpi_label">
+                        <t t-esc="props.label"/>
+                    </div>
+                    <div t-if="props.trend" class="o_dashboard_kpi_trend" t-att-class="props.trend.type">
+                        <i t-att-class="props.trend.icon"></i>
+                        <span><t t-esc="props.trend.value"/>%</span>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </t>
+
+    <!-- Orange KPI Card Template -->
+    <t t-name="odoo_dynamic_dashboard.ModernKPICardOrange" owl="1">
+        <div class="o_dashboard_block o_dashboard_kpi_card_orange">
+            <div class="o_dashboard_block_header">
+                <h3><t t-esc="props.title"/></h3>
+                <div class="o_dashboard_block_actions">
+                    <button t-if="props.showRefresh" t-on-click="refresh">
+                        <i class="fa fa-refresh"></i>
+                    </button>
+                    <button t-if="props.showSettings" t-on-click="openSettings">
+                        <i class="fa fa-cog"></i>
+                    </button>
+                </div>
+            </div>
+            <div class="o_dashboard_block_content">
+                <div class="o_dashboard_kpi_content">
+                    <div class="o_dashboard_kpi_value">
+                        <t t-esc="props.value"/>
+                    </div>
+                    <div class="o_dashboard_kpi_label">
+                        <t t-esc="props.label"/>
+                    </div>
+                    <div t-if="props.trend" class="o_dashboard_kpi_trend" t-att-class="props.trend.type">
+                        <i t-att-class="props.trend.icon"></i>
+                        <span><t t-esc="props.trend.value"/>%</span>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </t>
+
+    <!-- Green KPI Card Template -->
+    <t t-name="odoo_dynamic_dashboard.ModernKPICardGreen" owl="1">
+        <div class="o_dashboard_block o_dashboard_kpi_card_green">
+            <div class="o_dashboard_block_header">
+                <h3><t t-esc="props.title"/></h3>
+                <div class="o_dashboard_block_actions">
+                    <button t-if="props.showRefresh" t-on-click="refresh">
+                        <i class="fa fa-refresh"></i>
+                    </button>
+                    <button t-if="props.showSettings" t-on-click="openSettings">
+                        <i class="fa fa-cog"></i>
+                    </button>
+                </div>
+            </div>
+            <div class="o_dashboard_block_content">
+                <div class="o_dashboard_kpi_content">
+                    <div class="o_dashboard_kpi_value">
+                        <t t-esc="props.value"/>
+                    </div>
+                    <div class="o_dashboard_kpi_label">
+                        <t t-esc="props.label"/>
+                    </div>
+                    <div t-if="props.trend" class="o_dashboard_kpi_trend" t-att-class="props.trend.type">
+                        <i t-att-class="props.trend.icon"></i>
+                        <span><t t-esc="props.trend.value"/>%</span>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </t>
+
+    <!-- Purple KPI Card Template -->
+    <t t-name="odoo_dynamic_dashboard.ModernKPICardPurple" owl="1">
+        <div class="o_dashboard_block o_dashboard_kpi_card_purple">
+            <div class="o_dashboard_block_header">
+                <h3><t t-esc="props.title"/></h3>
+                <div class="o_dashboard_block_actions">
+                    <button t-if="props.showRefresh" t-on-click="refresh">
+                        <i class="fa fa-refresh"></i>
+                    </button>
+                    <button t-if="props.showSettings" t-on-click="openSettings">
+                        <i class="fa fa-cog"></i>
+                    </button>
+                </div>
+            </div>
+            <div class="o_dashboard_block_content">
+                <div class="o_dashboard_kpi_content">
+                    <div class="o_dashboard_kpi_value">
+                        <t t-esc="props.value"/>
+                    </div>
+                    <div class="o_dashboard_kpi_label">
+                        <t t-esc="props.label"/>
+                    </div>
+                    <div t-if="props.trend" class="o_dashboard_kpi_trend" t-att-class="props.trend.type">
+                        <i t-att-class="props.trend.icon"></i>
+                        <span><t t-esc="props.trend.value"/>%</span>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </t>
+
+    <!-- Modern Chart Card Template -->
+    <t t-name="odoo_dynamic_dashboard.ModernChartCard" owl="1">
+        <div class="o_dashboard_block chart-container">
+            <div class="chart-header">
+                <div>
+                    <h3 class="chart-title"><t t-esc="props.title"/></h3>
+                    <p t-if="props.subtitle" class="chart-subtitle"><t t-esc="props.subtitle"/></p>
+                </div>
+                <div class="chart-actions">
+                    <button class="chart-action-btn" t-on-click="refreshChart">
+                        <i class="fa fa-refresh"></i>
+                    </button>
+                    <button class="chart-action-btn" t-on-click="downloadChart">
+                        <i class="fa fa-download"></i>
+                    </button>
+                    <button class="chart-action-btn" t-on-click="fullscreenChart">
+                        <i class="fa fa-expand"></i>
+                    </button>
+                </div>
+            </div>
+            
+            <div t-if="props.filters" class="chart-filters">
+                <div t-foreach="props.filters" t-as="filter" 
+                     class="chart-filter" 
+                     t-att-class="filter.active ? 'active' : ''"
+                     t-on-click="() => this.applyFilter(filter)">
+                    <t t-esc="filter.label"/>
+                </div>
+            </div>
+            
+            <div class="o_dashboard_chart_content">
+                <canvas t-if="!state.loading and !state.error" 
+                        class="o_dashboard_chart_canvas chart-animate-in"
+                        t-ref="chartCanvas"></canvas>
+                        
+                <div t-if="state.loading" class="chart-loading">
+                    <div class="chart-loading-spinner"></div>
+                    <div class="chart-loading-text">Chargement des données...</div>
+                </div>
+                
+                <div t-if="state.error" class="chart-error">
+                    <i class="fa fa-exclamation-triangle chart-error-icon"></i>
+                    <div class="chart-error-text">Erreur lors du chargement des données</div>
+                </div>
+            </div>
+            
+            <div t-if="props.showStats" class="chart-stats">
+                <div t-foreach="props.stats" t-as="stat" class="chart-stat">
+                    <div class="chart-stat-value"><t t-esc="stat.value"/></div>
+                    <div class="chart-stat-label"><t t-esc="stat.label"/></div>
+                </div>
+            </div>
+        </div>
+    </t>
+
+    <!-- Modern Dashboard Grid Template -->
+    <t t-name="odoo_dynamic_dashboard.ModernDashboardGrid" owl="1">
+        <div class="o_dynamic_dashboard">
+            <div class="o_dashboard_header">
+                <div class="o_dashboard_header_left">
+                    <h1><t t-esc="state.dashboard?.name or 'Dashboard Analytics'"/></h1>
+                    <p><t t-esc="state.dashboard?.description or 'Tableau de bord interactif et moderne'"/></p>
+                </div>
+                <div class="o_dashboard_header_actions">
+                    <button class="o_dashboard_refresh" t-on-click="refreshData">
+                        <i class="fa fa-refresh"></i>
+                        Actualiser
+                    </button>
+                    <button class="o_dashboard_fullscreen" t-on-click="toggleFullscreen">
+                        <i class="fa fa-expand"></i>
+                        Plein écran
+                    </button>
+                </div>
+            </div>
+            
+            <div class="o_dashboard_content">
+                <!-- KPI Cards Row -->
+                <div class="o_dashboard_kpi_row">
+                    <t t-call="odoo_dynamic_dashboard.ModernKPICardBlue">
+                        <t t-set="props" t-value="{
+                            title: 'Ventes Totales',
+                            value: '€23,927',
+                            label: 'Ce mois',
+                            trend: { type: 'positive', icon: 'fa fa-arrow-up', value: '+12.5' }
+                        }"/>
+                    </t>
+                    
+                    <t t-call="odoo_dynamic_dashboard.ModernKPICardOrange">
+                        <t t-set="props" t-value="{
+                            title: 'Commandes',
+                            value: '1,234',
+                            label: 'Total',
+                            trend: { type: 'positive', icon: 'fa fa-arrow-up', value: '+8.2' }
+                        }"/>
+                    </t>
+                    
+                    <t t-call="odoo_dynamic_dashboard.ModernKPICardGreen">
+                        <t t-set="props" t-value="{
+                            title: 'Clients',
+                            value: '567',
+                            label: 'Actifs',
+                            trend: { type: 'positive', icon: 'fa fa-arrow-up', value: '+15.3' }
+                        }"/>
+                    </t>
+                    
+                    <t t-call="odoo_dynamic_dashboard.ModernKPICardPurple">
+                        <t t-set="props" t-value="{
+                            title: 'Conversion',
+                            value: '3.2%',
+                            label: 'Taux',
+                            trend: { type: 'negative', icon: 'fa fa-arrow-down', value: '-2.1' }
+                        }"/>
+                    </t>
+                </div>
+                
+                <!-- Charts Row -->
+                <div class="o_dashboard_charts_row">
+                    <t t-call="odoo_dynamic_dashboard.ModernChartCard">
+                        <t t-set="props" t-value="{
+                            title: 'Évolution des Ventes',
+                            subtitle: 'Données des 12 derniers mois',
+                            showStats: true,
+                            stats: [
+                                { value: '€45K', label: 'Moyenne' },
+                                { value: '€67K', label: 'Maximum' },
+                                { value: '€23K', label: 'Minimum' }
+                            ]
+                        }"/>
+                    </t>
+                </div>
+            </div>
+        </div>
+    </t>
+</templates>

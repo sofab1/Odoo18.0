@@ -1,0 +1,281 @@
+/* Analytics Dashboard Styles */
+
+.analytics_dashboard_container {
+    font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+    background-color: #f8f9fc;
+    max-height: calc(100vh - 100px);
+    overflow-y: auto;
+    overflow-x: hidden;
+    padding: 20px;
+    box-sizing: border-box;
+}
+
+.analytics_header h2 {
+    color: #5a5c69;
+    font-weight: 600;
+    font-size: 1.75rem;
+}
+
+/* Natural scrollable content */
+.analytics_dashboard_container .row {
+    margin-bottom: 30px;
+}
+
+.analytics_dashboard_container .card {
+    margin-bottom: 20px;
+}
+
+/* KPI Widget Cards - smaller size */
+.widget_card {
+    margin-bottom: 20px;
+    min-height: auto !important;
+    height: auto !important;
+}
+
+.widget_card .card-body {
+    padding: 1rem !important;
+    min-height: auto !important;
+    height: auto !important;
+}
+
+.widget_card .card {
+    min-height: auto !important;
+    height: auto !important;
+}
+
+/* Chart Cards - normal size for charts */
+.chart_card {
+    margin-bottom: 25px;
+}
+
+/* Chart containers */
+.chart-container {
+    min-height: 300px;
+    padding: 15px;
+}
+
+/* Ensure content flows naturally */
+.analytics_dashboard_container {
+    display: block;
+}
+
+.analytics_header h2 i {
+    margin-right: 0.5rem;
+    color: #858796;
+}
+
+/* KPI Cards */
+.card.border-left-primary {
+    border-left: 0.25rem solid #4e73df !important;
+}
+
+.card.border-left-success {
+    border-left: 0.25rem solid #1cc88a !important;
+}
+
+.card.border-left-info {
+    border-left: 0.25rem solid #36b9cc !important;
+}
+
+.card.border-left-warning {
+    border-left: 0.25rem solid #f6c23e !important;
+}
+
+.card.border-left-danger {
+    border-left: 0.25rem solid #e74a3b !important;
+}
+
+.card.shadow {
+    box-shadow: 0 0.15rem 1.75rem 0 rgba(58, 59, 69, 0.15) !important;
+}
+
+.text-xs {
+    font-size: 0.7rem;
+}
+
+.text-primary {
+    color: #4e73df !important;
+}
+
+.text-success {
+    color: #1cc88a !important;
+}
+
+.text-info {
+    color: #36b9cc !important;
+}
+
+.text-warning {
+    color: #f6c23e !important;
+}
+
+.text-danger {
+    color: #e74a3b !important;
+}
+
+.text-gray-800 {
+    color: #5a5c69 !important;
+}
+
+.text-gray-300 {
+    color: #dddfeb !important;
+}
+
+/* Buttons */
+.btn-outline-primary {
+    color: #4e73df;
+    border-color: #4e73df;
+}
+
+.btn-outline-primary:hover {
+    background-color: #4e73df;
+    border-color: #4e73df;
+}
+
+.btn-primary {
+    background-color: #4e73df;
+    border-color: #4e73df;
+}
+
+.btn-primary:hover {
+    background-color: #2e59d9;
+    border-color: #2653d4;
+}
+
+/* Loading State */
+.fa-spinner {
+    color: #858796;
+}
+
+/* Empty State */
+.text-muted {
+    color: #858796 !important;
+}
+
+/* Chart Containers */
+.card-header {
+    background-color: #f8f9fc;
+    border-bottom: 1px solid #e3e6f0;
+}
+
+.card-header h6 {
+    color: #5a5c69;
+}
+
+/* Responsive Design */
+@media (max-width: 768px) {
+    .analytics_header {
+        text-align: center;
+    }
+
+    .analytics_controls {
+        margin-top: 1rem;
+    }
+
+    .analytics_header .d-flex {
+        flex-direction: column;
+    }
+}
+
+/* Animation */
+.card {
+    transition: transform 0.2s ease-in-out;
+}
+
+.card:hover {
+    transform: translateY(-2px);
+}
+
+/* Custom scrollbar */
+::-webkit-scrollbar {
+    width: 8px;
+}
+
+::-webkit-scrollbar-track {
+    background: #f1f1f1;
+}
+
+::-webkit-scrollbar-thumb {
+    background: #c1c1c1;
+    border-radius: 4px;
+}
+
+::-webkit-scrollbar-thumb:hover {
+    background: #a8a8a8;
+}
+
+/* AI Assistant Floating Button */
+.ai_floating_button {
+    position: fixed;
+    bottom: 30px;
+    right: 30px;
+    width: 60px;
+    height: 60px;
+    border-radius: 50%;
+    background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+    border: none;
+    color: white;
+    font-size: 24px;
+    box-shadow: 0 8px 25px rgba(102, 126, 234, 0.4);
+    cursor: pointer;
+    transition: all 0.3s ease;
+    z-index: 1000;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.ai_floating_button:hover {
+    transform: scale(1.1);
+    box-shadow: 0 12px 35px rgba(102, 126, 234, 0.6);
+    color: white;
+}
+
+.ai_floating_button:active {
+    transform: scale(0.95);
+}
+
+.ai_floating_button .fa-robot {
+    animation: pulse 2s infinite;
+}
+
+@keyframes pulse {
+    0% {
+        transform: scale(1);
+    }
+    50% {
+        transform: scale(1.1);
+    }
+    100% {
+        transform: scale(1);
+    }
+}
+
+/* Update responsive design */
+@media (max-width: 768px) {
+    .analytics_header {
+        text-align: center;
+    }
+
+    .analytics_controls {
+        margin-top: 1rem;
+        flex-direction: column;
+        gap: 10px;
+    }
+
+    .analytics_controls .btn {
+        width: 100%;
+    }
+
+    .analytics_header .d-flex {
+        flex-direction: column;
+    }
+
+    .ai_floating_button {
+        bottom: 20px;
+        right: 20px;
+        width: 50px;
+        height: 50px;
+        font-size: 20px;
+    }
+}

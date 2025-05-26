@@ -1,0 +1,11 @@
+Instructions pour créer une icône pour le module "Tableau de Bord Bijouterie"
+
+Vous devez créer un fichier PNG nommé "icon.png" dans le dossier "odoo\addons\custom_dashboard\static\description\".
+
+Spécifications de l'icône :
+- Taille : 140x140 pixels
+- Format : PNG avec fond transparent
+- Contenu suggéré : Un symbole de bijou (comme une bague ou un diamant) combiné avec un élément de tableau de bord (comme un graphique)
+- Couleurs : Utilisez des couleurs vives et attrayantes, comme le bleu, l'or ou l'argent
+
+Cette icône sera affichée dans la liste des applications Odoo et dans le menu principal.

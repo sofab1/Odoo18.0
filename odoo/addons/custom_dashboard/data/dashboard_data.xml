@@ -1,0 +1,55 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <data noupdate="1">
+        <!-- Default Bijouterie Dashboard Group -->
+        <record id="bijouterie_dashboard_group" model="spreadsheet.dashboard.group">
+            <field name="name">🤖 AI Bijouterie Dashboards</field>
+            <field name="sequence">1</field>
+        </record>
+
+        <!-- AI Production Dashboard -->
+        <record id="ai_production_dashboard" model="spreadsheet.dashboard">
+            <field name="name">🏭 AI Production Analytics</field>
+            <field name="dashboard_group_id" ref="bijouterie_dashboard_group"/>
+            <field name="sequence">1</field>
+            <field name="is_published">True</field>
+            <field name="spreadsheet_data">{"version":16,"sheets":[{"id":"sheet1","name":"AI Production","colNumber":26,"rowNumber":100,"cells":{"A1":{"content":"🤖 AI Production Analytics - Bijouterie","style":1},"A3":{"content":"📊 KPIs Production","style":2},"A4":{"content":"Bijoux produits aujourd'hui:","style":3},"B4":{"content":"127","style":4},"A5":{"content":"Efficacité IA prédite:","style":3},"B5":{"content":"89.5%","style":4},"A6":{"content":"Prévision demain:","style":3},"B6":{"content":"134 bijoux","style":4},"A8":{"content":"🎯 Prédictions IA","style":2},"A9":{"content":"Risque de retard:","style":3},"B9":{"content":"12%","style":5},"A10":{"content":"Qualité prévue:","style":3},"B10":{"content":"97.8%","style":6},"A11":{"content":"Maintenance suggérée:","style":3},"B11":{"content":"Dans 7 jours","style":7},"A13":{"content":"🔮 Insights IA","style":2},"A14":{"content":"• Optimiser poste polissage (+15% efficacité)","style":8},"A15":{"content":"• Augmenter stock or 18k (rupture prévue)","style":8},"A16":{"content":"• Former équipe sertissage (qualité ↗)","style":8}},"styles":{"1":{"bold":true,"fontSize":16,"align":"center","fillColor":"#667eea","textColor":"white"},"2":{"bold":true,"fontSize":14,"fillColor":"#E3F2FD","textColor":"#1976D2"},"3":{"bold":true,"textColor":"#2c3e50"},"4":{"align":"right","bold":true,"textColor":"#27ae60","fontSize":14},"5":{"align":"right","bold":true,"textColor":"#e74c3c"},"6":{"align":"right","bold":true,"textColor":"#27ae60"},"7":{"align":"right","bold":true,"textColor":"#f39c12"},"8":{"textColor":"#7f8c8d","italic":true}}}]}</field>
+        </record>
+
+        <!-- AI Quality Dashboard -->
+        <record id="ai_quality_dashboard" model="spreadsheet.dashboard">
+            <field name="name">🎯 AI Quality Control</field>
+            <field name="dashboard_group_id" ref="bijouterie_dashboard_group"/>
+            <field name="sequence">2</field>
+            <field name="is_published">True</field>
+            <field name="spreadsheet_data">{"version":16,"sheets":[{"id":"sheet1","name":"AI Quality","colNumber":26,"rowNumber":100,"cells":{"A1":{"content":"🎯 AI Quality Control - Bijouterie","style":1},"A3":{"content":"📈 Métriques Qualité","style":2},"A4":{"content":"Taux de conformité:","style":3},"B4":{"content":"97.8%","style":4},"A5":{"content":"Défauts détectés:","style":3},"B5":{"content":"2.2%","style":5},"A6":{"content":"Score qualité IA:","style":3},"B6":{"content":"9.2/10","style":4},"A8":{"content":"🤖 Prédictions Qualité","style":2},"A9":{"content":"Risque défauts demain:","style":3},"B9":{"content":"1.8%","style":4},"A10":{"content":"Impact température:","style":3},"B10":{"content":"Moyen","style":6},"A11":{"content":"Recommandation IA:","style":3},"B11":{"content":"Surveiller humidité","style":7},"A13":{"content":"🔍 Analyse IA","style":2},"A14":{"content":"• Corrélation matière première: 89%","style":8},"A15":{"content":"• Meilleure performance: Équipe A","style":8},"A16":{"content":"• Optimisation suggérée: +3% qualité","style":8}},"styles":{"1":{"bold":true,"fontSize":16,"align":"center","fillColor":"#764ba2","textColor":"white"},"2":{"bold":true,"fontSize":14,"fillColor":"#E8F5E8","textColor":"#2e7d32"},"3":{"bold":true,"textColor":"#2c3e50"},"4":{"align":"right","bold":true,"textColor":"#27ae60","fontSize":14},"5":{"align":"right","bold":true,"textColor":"#e74c3c"},"6":{"align":"right","bold":true,"textColor":"#f39c12"},"7":{"align":"right","bold":true,"textColor":"#9c27b0"},"8":{"textColor":"#7f8c8d","italic":true}}}]}</field>
+        </record>
+
+        <!-- AI Inventory Dashboard -->
+        <record id="ai_inventory_dashboard" model="spreadsheet.dashboard">
+            <field name="name">📦 AI Stock Optimizer</field>
+            <field name="dashboard_group_id" ref="bijouterie_dashboard_group"/>
+            <field name="sequence">3</field>
+            <field name="is_published">True</field>
+            <field name="spreadsheet_data">{"version":16,"sheets":[{"id":"sheet1","name":"AI Inventory","colNumber":26,"rowNumber":100,"cells":{"A1":{"content":"📦 AI Stock Optimizer - Bijouterie","style":1},"A3":{"content":"💎 Stock Matières Premières","style":2},"A4":{"content":"Or 18k (grammes):","style":3},"B4":{"content":"1,250","style":4},"A5":{"content":"Argent 925 (grammes):","style":3},"B5":{"content":"3,400","style":4},"A6":{"content":"Diamants (pièces):","style":3},"B6":{"content":"156","style":4},"A8":{"content":"🤖 Optimisation IA","style":2},"A9":{"content":"Économies possibles:","style":3},"B9":{"content":"€3,200","style":6},"A10":{"content":"Réapprovisionnement:","style":3},"B10":{"content":"5 articles","style":5},"A11":{"content":"Niveau optimal:","style":3},"B11":{"content":"89%","style":4},"A13":{"content":"🔮 Prédictions Stock","style":2},"A14":{"content":"• Rupture or 18k prévue: 12 jours","style":8},"A15":{"content":"• Demande diamants: +15% (Noël)","style":8},"A16":{"content":"• Rotation optimale: -8% coûts","style":8}},"styles":{"1":{"bold":true,"fontSize":16,"align":"center","fillColor":"#f093fb","textColor":"white"},"2":{"bold":true,"fontSize":14,"fillColor":"#FFF3E0","textColor":"#f57c00"},"3":{"bold":true,"textColor":"#2c3e50"},"4":{"align":"right","bold":true,"textColor":"#27ae60","fontSize":14},"5":{"align":"right","bold":true,"textColor":"#e74c3c"},"6":{"align":"right","bold":true,"textColor":"#2196f3"},"7":{"align":"right","bold":true,"textColor":"#9c27b0"},"8":{"textColor":"#7f8c8d","italic":true}}}]}</field>
+        </record>
+
+        <!-- AI Predictive Analytics Dashboard -->
+        <record id="ai_predictive_dashboard" model="spreadsheet.dashboard">
+            <field name="name">🔮 AI Predictive Analytics</field>
+            <field name="dashboard_group_id" ref="bijouterie_dashboard_group"/>
+            <field name="sequence">4</field>
+            <field name="is_published">True</field>
+            <field name="spreadsheet_data">{"version":16,"sheets":[{"id":"sheet1","name":"AI Predictions","colNumber":26,"rowNumber":100,"cells":{"A1":{"content":"🔮 AI Predictive Analytics - Bijouterie","style":1},"A3":{"content":"📊 Prévisions 7 Jours","style":2},"A4":{"content":"Production prévue:","style":3},"B4":{"content":"890 bijoux","style":4},"A5":{"content":"Chiffre d'affaires:","style":3},"B5":{"content":"€125,000","style":4},"A6":{"content":"Confiance IA:","style":3},"B6":{"content":"87%","style":4},"A8":{"content":"🎯 Recommandations IA","style":2},"A9":{"content":"Action prioritaire:","style":3},"B9":{"content":"Maintenance préventive","style":5},"A10":{"content":"Investissement suggéré:","style":3},"B10":{"content":"€15,000","style":6},"A11":{"content":"ROI estimé:","style":3},"B11":{"content":"23%","style":4},"A13":{"content":"🚀 Opportunités Détectées","style":2},"A14":{"content":"• Nouveau marché: Bijoux personnalisés (+25%)","style":8},"A15":{"content":"• Optimisation énergétique: -12% coûts","style":8},"A16":{"content":"• Formation IA équipe: +18% efficacité","style":8},"A18":{"content":"⚠️ Risques Identifiés","style":7},"A19":{"content":"• Volatilité prix or: Impact modéré","style":9},"A20":{"content":"• Concurrence: Surveiller prix","style":9}},"styles":{"1":{"bold":true,"fontSize":16,"align":"center","fillColor":"#43e97b","textColor":"white"},"2":{"bold":true,"fontSize":14,"fillColor":"#E1F5FE","textColor":"#0277bd"},"3":{"bold":true,"textColor":"#2c3e50"},"4":{"align":"right","bold":true,"textColor":"#27ae60","fontSize":14},"5":{"align":"right","bold":true,"textColor":"#9c27b0"},"6":{"align":"right","bold":true,"textColor":"#2196f3"},"7":{"bold":true,"fontSize":14,"fillColor":"#FFEBEE","textColor":"#c62828"},"8":{"textColor":"#4caf50","italic":true},"9":{"textColor":"#ff5722","italic":true}}}]}</field>
+        </record>
+
+        <!-- AI Voice Commands Help -->
+        <record id="ai_voice_help_dashboard" model="spreadsheet.dashboard">
+            <field name="name">🗣️ AI Voice Commands</field>
+            <field name="dashboard_group_id" ref="bijouterie_dashboard_group"/>
+            <field name="sequence">5</field>
+            <field name="is_published">True</field>
+            <field name="spreadsheet_data">{"version":16,"sheets":[{"id":"sheet1","name":"Voice Commands","colNumber":26,"rowNumber":100,"cells":{"A1":{"content":"🗣️ AI Voice Commands - Guide d'Utilisation","style":1},"A3":{"content":"🎤 Commandes Vocales Disponibles","style":2},"A5":{"content":"Navigation:","style":3},"A6":{"content":"• \"Afficher production\"","style":4},"A7":{"content":"• \"Afficher stock\"","style":4},"A8":{"content":"• \"Afficher qualité\"","style":4},"A9":{"content":"• \"Prédictions\"","style":4},"A11":{"content":"Actions:","style":3},"A12":{"content":"• \"Actualiser\"","style":4},"A13":{"content":"• \"Mode sombre\"","style":4},"A14":{"content":"• \"Mode clair\"","style":4},"A15":{"content":"• \"Aide\"","style":4},"A17":{"content":"💡 Conseils d'Utilisation","style":2},"A18":{"content":"1. Cliquez sur l'icône microphone","style":5},"A19":{"content":"2. Parlez clairement en français","style":5},"A20":{"content":"3. Attendez la confirmation","style":5},"A21":{"content":"4. Profitez de l'IA !","style":5}},"styles":{"1":{"bold":true,"fontSize":16,"align":"center","fillColor":"#667eea","textColor":"white"},"2":{"bold":true,"fontSize":14,"fillColor":"#F3E5F5","textColor":"#7b1fa2"},"3":{"bold":true,"textColor":"#2c3e50","fontSize":12},"4":{"textColor":"#1976d2","italic":true},"5":{"textColor":"#388e3c"}}}]}</field>
+        </record>
+    </data>
+</odoo>

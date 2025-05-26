@@ -1,0 +1,191 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <data>
+        <!-- Dashboard Home Template -->
+        <template id="dashboard_home_template" name="Dashboard Home">
+            <t t-call="web.layout">
+                <t t-set="head_website">
+                    <link rel="stylesheet" href="/custom_dashboard/static/src/css/ai_dashboard_component.css"/>
+                    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css"/>
+                    <style>
+                        .dashboard-home {
+                            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+                            min-height: 100vh;
+                            padding: 40px;
+                            color: white;
+                            font-family: 'Inter', sans-serif;
+                        }
+                        .home-header {
+                            text-align: center;
+                            margin-bottom: 50px;
+                        }
+                        .home-title {
+                            font-size: 3rem;
+                            font-weight: 700;
+                            margin-bottom: 20px;
+                        }
+                        .home-subtitle {
+                            font-size: 1.3rem;
+                            opacity: 0.9;
+                            margin-bottom: 30px;
+                        }
+                        .dashboards-grid {
+                            display: grid;
+                            grid-template-columns: repeat(auto-fit, minmax(350px, 1fr));
+                            gap: 30px;
+                            max-width: 1200px;
+                            margin: 0 auto;
+                        }
+                        .dashboard-card {
+                            background: rgba(255, 255, 255, 0.1);
+                            backdrop-filter: blur(20px);
+                            border: 1px solid rgba(255, 255, 255, 0.2);
+                            border-radius: 20px;
+                            padding: 30px;
+                            text-decoration: none;
+                            color: white;
+                            transition: all 0.3s ease;
+                            cursor: pointer;
+                        }
+                        .dashboard-card:hover {
+                            transform: translateY(-10px) scale(1.02);
+                            box-shadow: 0 20px 40px rgba(0, 0, 0, 0.3);
+                            text-decoration: none;
+                            color: white;
+                        }
+                        .card-icon {
+                            font-size: 3rem;
+                            margin-bottom: 20px;
+                            display: block;
+                        }
+                        .card-title {
+                            font-size: 1.5rem;
+                            font-weight: 600;
+                            margin-bottom: 15px;
+                        }
+                        .card-description {
+                            opacity: 0.9;
+                            line-height: 1.6;
+                            margin-bottom: 20px;
+                        }
+                        .card-features {
+                            list-style: none;
+                            padding: 0;
+                            margin: 0;
+                        }
+                        .card-features li {
+                            padding: 5px 0;
+                            font-size: 0.9rem;
+                            opacity: 0.8;
+                        }
+                        .card-features li:before {
+                            content: "✓ ";
+                            color: #4CAF50;
+                            font-weight: bold;
+                        }
+                        .stats-section {
+                            background: rgba(255, 255, 255, 0.1);
+                            backdrop-filter: blur(20px);
+                            border: 1px solid rgba(255, 255, 255, 0.2);
+                            border-radius: 20px;
+                            padding: 30px;
+                            margin: 40px auto;
+                            max-width: 800px;
+                            text-align: center;
+                        }
+                        .stats-grid {
+                            display: grid;
+                            grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
+                            gap: 20px;
+                            margin-top: 20px;
+                        }
+                        .stat-item {
+                            text-align: center;
+                        }
+                        .stat-value {
+                            font-size: 2rem;
+                            font-weight: 700;
+                            color: #4CAF50;
+                        }
+                        .stat-label {
+                            font-size: 0.9rem;
+                            opacity: 0.8;
+                            margin-top: 5px;
+                        }
+                    </style>
+                </t>
+                
+                <div class="dashboard-home">
+                    <div class="home-header">
+                        <h1 class="home-title">
+                            <i class="fa fa-brain"></i>
+                            <t t-esc="title"/>
+                        </h1>
+                        <p class="home-subtitle">
+                            Choisissez votre dashboard IA spécialisé pour une analyse approfondie
+                        </p>
+                    </div>
+
+                    <div class="dashboards-grid">
+                        <t t-foreach="dashboards" t-as="dashboard" t-key="dashboard['id']">
+                            <a t-att-href="dashboard['url']" class="dashboard-card" t-att-style="'border-top: 4px solid ' + dashboard['color']">
+                                <i t-att-class="'fa ' + dashboard['icon'] + ' card-icon'" t-att-style="'color: ' + dashboard['color']"></i>
+                                <h3 class="card-title" t-esc="dashboard['title']"/>
+                                <p class="card-description" t-esc="dashboard['description']"/>
+                                <ul class="card-features">
+                                    <t t-foreach="dashboard['features']" t-as="feature" t-key="feature_index">
+                                        <li t-esc="feature"/>
+                                    </t>
+                                </ul>
+                            </a>
+                        </t>
+                    </div>
+
+                    <div class="stats-section">
+                        <h2>📊 Statistiques Plateforme IA</h2>
+                        <div class="stats-grid">
+                            <div class="stat-item">
+                                <div class="stat-value" t-esc="stats['total_dashboards']"/>
+                                <div class="stat-label">Dashboards IA</div>
+                            </div>
+                            <div class="stat-item">
+                                <div class="stat-value" t-esc="str(stats['ai_confidence']) + '%'"/>
+                                <div class="stat-label">Confiance IA</div>
+                            </div>
+                            <div class="stat-item">
+                                <div class="stat-value" t-esc="stats['active_features']"/>
+                                <div class="stat-label">Fonctionnalités</div>
+                            </div>
+                            <div class="stat-item">
+                                <div class="stat-value" t-esc="stats['last_update']"/>
+                                <div class="stat-label">Dernière MAJ</div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div style="text-align: center; margin-top: 40px; opacity: 0.8;">
+                        <p>🚀 Powered by Bijouterie AI Intelligence Platform</p>
+                        <p>Tous les dashboards utilisent des données dynamiques et de l'intelligence artificielle</p>
+                    </div>
+                </div>
+
+                <script>
+                    // Add smooth animations
+                    document.addEventListener('DOMContentLoaded', function() {
+                        const cards = document.querySelectorAll('.dashboard-card');
+                        cards.forEach((card, index) => {
+                            card.style.opacity = '0';
+                            card.style.transform = 'translateY(30px)';
+                            
+                            setTimeout(() => {
+                                card.style.transition = 'all 0.6s ease';
+                                card.style.opacity = '1';
+                                card.style.transform = 'translateY(0)';
+                            }, 200 + index * 100);
+                        });
+                    });
+                </script>
+            </t>
+        </template>
+    </data>
+</odoo>

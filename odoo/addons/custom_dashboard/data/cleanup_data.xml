@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <data noupdate="0">
+        <!-- Delete ALL old conflicting actions from custom_dashboard module -->
+        <delete model="ir.actions.client" search="[('xml_id', 'ilike', 'custom_dashboard.%')]"/>
+        <delete model="ir.actions.act_url" search="[('xml_id', 'ilike', 'custom_dashboard.action_bijouterie_dashboard')]"/>
+        <delete model="ir.actions.act_url" search="[('xml_id', 'ilike', 'custom_dashboard.action_custom_dashboard')]"/>
+        <delete model="ir.actions.act_url" search="[('xml_id', 'ilike', 'custom_dashboard.action_advanced_ai_dashboard')]"/>
+        <delete model="ir.actions.act_url" search="[('xml_id', 'ilike', 'custom_dashboard.action_ai_production_dashboard')]"/>
+        <delete model="ir.actions.act_url" search="[('xml_id', 'ilike', 'custom_dashboard.action_ai_quality_dashboard')]"/>
+        <delete model="ir.actions.act_url" search="[('xml_id', 'ilike', 'custom_dashboard.action_ai_inventory_dashboard')]"/>
+        <delete model="ir.actions.act_url" search="[('xml_id', 'ilike', 'custom_dashboard.action_ai_predictive_dashboard')]"/>
+        <delete model="ir.actions.act_url" search="[('xml_id', 'ilike', 'custom_dashboard.action_ai_voice_dashboard')]"/>
+
+        <!-- Delete old menu items that might conflict -->
+        <delete model="ir.ui.menu" search="[('name', 'ilike', 'Bijouterie')]"/>
+        <delete model="ir.ui.menu" search="[('name', 'ilike', 'AI Production Analytics')]"/>
+        <delete model="ir.ui.menu" search="[('name', 'ilike', 'AI Quality Control')]"/>
+        <delete model="ir.ui.menu" search="[('name', 'ilike', 'AI Stock Optimizer')]"/>
+        <delete model="ir.ui.menu" search="[('name', 'ilike', 'AI Predictive Analytics')]"/>
+        <delete model="ir.ui.menu" search="[('name', 'ilike', 'AI Voice Commands')]"/>
+        <delete model="ir.ui.menu" search="[('name', 'ilike', 'Dashboard IA Avancé')]"/>
+    </data>
+</odoo>

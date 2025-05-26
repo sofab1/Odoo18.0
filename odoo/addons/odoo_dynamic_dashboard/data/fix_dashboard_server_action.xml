@@ -1,0 +1,64 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <data noupdate="0">
+        <!-- Server Action to Fix Dashboard Actions -->
+        <record id="action_fix_dashboard_tags" model="ir.actions.server">
+            <field name="name">Fix Dashboard Action Tags</field>
+            <field name="model_id" ref="base.model_ir_actions_client"/>
+            <field name="state">code</field>
+            <field name="code">
+# Find all client actions with old tag
+old_actions = env['ir.actions.client'].search([
+    ('tag', '=', 'OdooDynamicDashboard')
+])
+
+# Log what we found
+_logger.info(f"Found {len(old_actions)} actions with old tag 'OdooDynamicDashboard'")
+
+if old_actions:
+    # Show details of what we're about to fix
+    for action in old_actions:
+        _logger.info(f"Action ID {action.id}: {action.name} - Tag: {action.tag}")
+    
+    # Update them to use the correct tag
+    old_actions.write({
+        'tag': 'odoo_dynamic_dashboard.dashboard'
+    })
+    
+    _logger.info(f"✅ Successfully updated {len(old_actions)} actions to use 'odoo_dynamic_dashboard.dashboard'")
+    
+    # Show success notification
+    action = {
+        'type': 'ir.actions.client',
+        'tag': 'display_notification',
+        'params': {
+            'title': 'Dashboard Actions Fixed!',
+            'message': f'Successfully updated {len(old_actions)} dashboard actions. Please restart Odoo server and clear browser cache.',
+            'type': 'success',
+            'sticky': True,
+        }
+    }
+else:
+    _logger.info("ℹ️  No actions found with old tag - nothing to fix")
+    action = {
+        'type': 'ir.actions.client',
+        'tag': 'display_notification',
+        'params': {
+            'title': 'No Fix Needed',
+            'message': 'No dashboard actions found with old tag. The issue might be elsewhere.',
+            'type': 'info',
+            'sticky': True,
+        }
+    }
+            </field>
+        </record>
+
+        <!-- Menu item to access the fix action -->
+        <record id="menu_fix_dashboard_actions" model="ir.ui.menu">
+            <field name="name">🔧 Fix Dashboard Actions</field>
+            <field name="parent_id" ref="odoo_dynamic_dashboard.menu_dashboard_root"/>
+            <field name="action" ref="action_fix_dashboard_tags"/>
+            <field name="sequence">999</field>
+        </record>
+    </data>
+</odoo>

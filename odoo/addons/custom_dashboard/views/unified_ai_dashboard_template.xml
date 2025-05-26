@@ -1,0 +1,420 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <data>
+        <!-- Unified AI Dashboard Template -->
+        <template id="unified_ai_dashboard_template" name="Unified AI Dashboard">
+            <t t-call="web.layout">
+                <t t-set="head_website">
+                    <link rel="stylesheet" href="/custom_dashboard/static/src/css/ai_dashboard_component.css"/>
+                    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css"/>
+                    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+                    <style>
+                        :root {
+                            --primary-color: <t t-esc="primary_color"/>;
+                        }
+                        .dashboard-theme {
+                            background: linear-gradient(135deg, <t t-esc="primary_color"/>22 0%, <t t-esc="primary_color"/>44 100%);
+                        }
+                    </style>
+                </t>
+                
+                <div class="ai-bijouterie-dashboard dashboard-theme">
+                    
+                    <!-- Loading Animation -->
+                    <div id="loading-screen" class="ai-loading-overlay" style="display: none;">
+                        <div class="loading-content">
+                            <div class="neural-network">
+                                <div class="neuron"></div>
+                                <div class="neuron"></div>
+                                <div class="neuron"></div>
+                                <div class="neuron"></div>
+                                <div class="neuron"></div>
+                                <div class="neuron"></div>
+                                <div class="neuron"></div>
+                                <div class="neuron"></div>
+                            </div>
+                            <h2>🧠 IA en cours d'analyse...</h2>
+                            <p>Traitement des données <t t-esc="dashboard_type"/> avec intelligence artificielle</p>
+                            <div class="progress-bar">
+                                <div class="progress-fill"></div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Main Dashboard Content -->
+                    <div class="dashboard-main">
+                        
+                        <!-- Header -->
+                        <div class="dashboard-header">
+                            <div class="header-left">
+                                <h1 class="dashboard-title">
+                                    <span class="ai-icon"><i t-att-class="'fa ' + dashboard_icon"></i></span>
+                                    <t t-esc="title"/>
+                                    <span class="ai-status">
+                                        IA <t t-esc="ai_status"/> - <t t-esc="performance_metrics['ai_confidence']"/>% Confiance
+                                    </span>
+                                </h1>
+                                <div class="real-time-indicator">
+                                    <span class="pulse-dot"></span>
+                                    Dashboard <t t-esc="dashboard_type.title()"/> - Dernière MAJ: <t t-esc="last_updated"/>
+                                </div>
+                            </div>
+                            
+                            <div class="header-controls">
+                                <button class="ai-button refresh-btn" onclick="refreshDashboard()">
+                                    <i class="fa fa-refresh"></i>
+                                    <span>Actualiser</span>
+                                </button>
+                                
+                                <button class="ai-button nav-btn" onclick="showNavigation()">
+                                    <i class="fa fa-compass"></i>
+                                    <span>Navigation</span>
+                                </button>
+                                
+                                <button class="ai-button voice-btn" onclick="toggleVoice()">
+                                    <i class="fa fa-microphone"></i>
+                                    <span>Vocal</span>
+                                </button>
+                            </div>
+                        </div>
+
+                        <!-- Performance Metrics -->
+                        <div class="performance-overview">
+                            <div class="metric-card ai-score">
+                                <div class="card-header">
+                                    <i class="fa fa-brain"></i>
+                                    <span>Score IA Global</span>
+                                </div>
+                                <div class="score-display">
+                                    <div class="circular-progress" t-att-data-score="performance_metrics['ai_score']">
+                                        <span class="score-value" t-esc="int(performance_metrics['ai_score'])"/>
+                                        <span class="score-unit">%</span>
+                                    </div>
+                                </div>
+                                <div class="score-trend">
+                                    <i class="fa fa-arrow-up trend-up"></i>
+                                    <t t-esc="performance_metrics.get('trend', '+')"/>5.2% cette semaine
+                                </div>
+                            </div>
+                            
+                            <div class="metric-card efficiency">
+                                <div class="card-header">
+                                    <i class="fa fa-tachometer"></i>
+                                    <span>Efficacité IA</span>
+                                </div>
+                                <div class="metric-value" t-esc="str(performance_metrics['efficiency']) + '%'"/>
+                                <div class="metric-chart">
+                                    <div class="mini-chart-bar" t-att-style="'width: ' + str(performance_metrics['efficiency']) + '%'"></div>
+                                </div>
+                            </div>
+                            
+                            <div class="metric-card quality">
+                                <div class="card-header">
+                                    <i class="fa fa-diamond"></i>
+                                    <span>Index Qualité</span>
+                                </div>
+                                <div class="metric-value" t-esc="str(performance_metrics['quality_index']) + '%'"/>
+                                <div class="quality-indicator">
+                                    <div class="quality-bar" t-att-style="'width: ' + str(performance_metrics['quality_index']) + '%'"></div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- Dashboard-Specific Metrics -->
+                        <div class="specific-metrics-section">
+                            <div class="section-header">
+                                <h2>
+                                    <i t-att-class="'fa ' + dashboard_icon"></i>
+                                    Métriques <t t-esc="dashboard_type.title()"/>
+                                </h2>
+                            </div>
+                            
+                            <div class="specific-metrics-grid">
+                                <t t-if="dashboard_type == 'production'">
+                                    <div class="specific-metric">
+                                        <div class="metric-icon"><i class="fa fa-industry"></i></div>
+                                        <div class="metric-info">
+                                            <h4>Production Actuelle</h4>
+                                            <span class="metric-value" t-esc="str(specific_data['current_production']) + ' bijoux/h'"/>
+                                        </div>
+                                    </div>
+                                    <div class="specific-metric">
+                                        <div class="metric-icon"><i class="fa fa-cogs"></i></div>
+                                        <div class="metric-info">
+                                            <h4>Machines Actives</h4>
+                                            <span class="metric-value" t-esc="str(specific_data['active_machines']) + '/12'"/>
+                                        </div>
+                                    </div>
+                                </t>
+                                
+                                <t t-if="dashboard_type == 'quality'">
+                                    <div class="specific-metric">
+                                        <div class="metric-icon"><i class="fa fa-shield"></i></div>
+                                        <div class="metric-info">
+                                            <h4>Score Qualité</h4>
+                                            <span class="metric-value" t-esc="str(specific_data['quality_score']) + '%'"/>
+                                        </div>
+                                    </div>
+                                    <div class="specific-metric">
+                                        <div class="metric-icon"><i class="fa fa-exclamation-triangle"></i></div>
+                                        <div class="metric-info">
+                                            <h4>Taux Défauts</h4>
+                                            <span class="metric-value" t-esc="str(specific_data['defect_rate']) + '%'"/>
+                                        </div>
+                                    </div>
+                                </t>
+                                
+                                <t t-if="dashboard_type == 'inventory'">
+                                    <div class="specific-metric">
+                                        <div class="metric-icon"><i class="fa fa-cubes"></i></div>
+                                        <div class="metric-info">
+                                            <h4>Niveau Stock</h4>
+                                            <span class="metric-value" t-esc="str(specific_data['stock_level']) + '%'"/>
+                                        </div>
+                                    </div>
+                                    <div class="specific-metric">
+                                        <div class="metric-icon"><i class="fa fa-refresh"></i></div>
+                                        <div class="metric-info">
+                                            <h4>Rotation Stock</h4>
+                                            <span class="metric-value" t-esc="str(specific_data['turnover_rate']) + 'x/an'"/>
+                                        </div>
+                                    </div>
+                                </t>
+                                
+                                <t t-if="dashboard_type == 'predictive'">
+                                    <div class="specific-metric">
+                                        <div class="metric-icon"><i class="fa fa-crystal-ball"></i></div>
+                                        <div class="metric-info">
+                                            <h4>Précision Prévisions</h4>
+                                            <span class="metric-value" t-esc="str(specific_data['forecast_accuracy']) + '%'"/>
+                                        </div>
+                                    </div>
+                                    <div class="specific-metric">
+                                        <div class="metric-icon"><i class="fa fa-chart-line"></i></div>
+                                        <div class="metric-info">
+                                            <h4>Prédictions Faites</h4>
+                                            <span class="metric-value" t-esc="str(specific_data['predictions_made'])"/>
+                                        </div>
+                                    </div>
+                                </t>
+                                
+                                <t t-if="dashboard_type == 'voice'">
+                                    <div class="specific-metric">
+                                        <div class="metric-icon"><i class="fa fa-microphone"></i></div>
+                                        <div class="metric-info">
+                                            <h4>Commandes Aujourd'hui</h4>
+                                            <span class="metric-value" t-esc="str(specific_data['commands_today'])"/>
+                                        </div>
+                                    </div>
+                                    <div class="specific-metric">
+                                        <div class="metric-icon"><i class="fa fa-check"></i></div>
+                                        <div class="metric-info">
+                                            <h4>Précision Reconnaissance</h4>
+                                            <span class="metric-value" t-esc="str(specific_data['recognition_accuracy']) + '%'"/>
+                                        </div>
+                                    </div>
+                                </t>
+                            </div>
+                        </div>
+
+                        <!-- AI Insights -->
+                        <div class="ai-insights-section">
+                            <div class="section-header">
+                                <h2>
+                                    <i class="fa fa-lightbulb-o"></i>
+                                    Insights IA <t t-esc="dashboard_type.title()"/>
+                                </h2>
+                                <div class="insights-confidence">
+                                    Confiance moyenne: <strong t-esc="str(performance_metrics['ai_confidence']) + '%'"/>
+                                </div>
+                            </div>
+                            
+                            <div class="insights-grid">
+                                <t t-foreach="ai_insights" t-as="insight" t-key="insight_index">
+                                    <div class="insight-card" t-att-class="'impact-' + insight['impact']">
+                                        <div class="insight-header">
+                                            <div class="insight-icon" t-att-style="'color: ' + insight['color']">
+                                                <i t-att-class="'fa ' + insight['icon']"></i>
+                                            </div>
+                                            <div class="insight-meta">
+                                                <h3 t-esc="insight['title']"/>
+                                                <div class="confidence-badge">
+                                                    <span t-esc="str(insight['confidence']) + '% confiance'"/>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        
+                                        <div class="insight-content">
+                                            <p t-esc="insight['description']"/>
+                                            <div class="insight-action">
+                                                <strong>Action recommandée:</strong>
+                                                <span t-esc="insight['action']"/>
+                                            </div>
+                                            <div class="insight-impact">
+                                                <span class="impact-label">Bénéfice:</span>
+                                                <span class="impact-value" t-esc="insight['savings']"/>
+                                            </div>
+                                        </div>
+                                        
+                                        <div class="insight-actions">
+                                            <button class="action-btn primary" onclick="applyInsight(this)">
+                                                Appliquer
+                                            </button>
+                                            <button class="action-btn secondary" onclick="showDetails(this)">
+                                                Détails
+                                            </button>
+                                        </div>
+                                    </div>
+                                </t>
+                            </div>
+                        </div>
+
+                        <!-- Navigation Section -->
+                        <div class="navigation-section">
+                            <div class="section-header">
+                                <h2>
+                                    <i class="fa fa-compass"></i>
+                                    Autres Dashboards IA
+                                </h2>
+                            </div>
+                            
+                            <div class="navigation-grid">
+                                <div class="nav-card production" onclick="navigateTo('/custom_dashboard/production')">
+                                    <div class="nav-icon"><i class="fa fa-industry"></i></div>
+                                    <h3>🏭 Production Analytics</h3>
+                                    <p>Analyse temps réel production</p>
+                                </div>
+                                
+                                <div class="nav-card quality" onclick="navigateTo('/custom_dashboard/quality')">
+                                    <div class="nav-icon"><i class="fa fa-shield"></i></div>
+                                    <h3>🎯 Quality Control</h3>
+                                    <p>Contrôle qualité intelligent</p>
+                                </div>
+                                
+                                <div class="nav-card inventory" onclick="navigateTo('/custom_dashboard/inventory')">
+                                    <div class="nav-icon"><i class="fa fa-cubes"></i></div>
+                                    <h3>📦 Stock Optimizer</h3>
+                                    <p>Optimisation stock IA</p>
+                                </div>
+                                
+                                <div class="nav-card predictive" onclick="navigateTo('/custom_dashboard/predictive')">
+                                    <div class="nav-icon"><i class="fa fa-crystal-ball"></i></div>
+                                    <h3>🔮 Predictive Analytics</h3>
+                                    <p>Analyses prédictives</p>
+                                </div>
+                                
+                                <div class="nav-card voice" onclick="navigateTo('/custom_dashboard/voice')">
+                                    <div class="nav-icon"><i class="fa fa-microphone"></i></div>
+                                    <h3>🗣️ Voice Commands</h3>
+                                    <p>Commandes vocales IA</p>
+                                </div>
+                                
+                                <div class="nav-card advanced" onclick="navigateTo('/custom_dashboard/advanced')">
+                                    <div class="nav-icon"><i class="fa fa-brain"></i></div>
+                                    <h3>🤖 Dashboard Avancé</h3>
+                                    <p>Interface IA complète</p>
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- Status Bar -->
+                        <div class="status-bar">
+                            <div class="status-item">
+                                <i class="fa fa-heartbeat"></i>
+                                <span>Statut IA: <strong t-esc="ai_status"/></span>
+                            </div>
+                            <div class="status-item">
+                                <i class="fa fa-clock-o"></i>
+                                <span>Dernière MAJ: <strong t-esc="last_updated"/></span>
+                            </div>
+                            <div class="status-item">
+                                <i class="fa fa-database"></i>
+                                <span>Type: <strong t-esc="dashboard_type.title()"/></span>
+                            </div>
+                            <div class="status-item">
+                                <i class="fa fa-shield"></i>
+                                <span>Confiance: <strong t-esc="str(performance_metrics['ai_confidence']) + '%'"/></span>
+                            </div>
+                        </div>
+
+                    </div>
+
+                    <!-- Voice Indicator -->
+                    <div id="voice-indicator" class="voice-indicator" style="display: none;">
+                        <i class="fa fa-microphone"></i>
+                    </div>
+
+                </div>
+
+                <script>
+                    // Dashboard functionality
+                    function refreshDashboard() {
+                        const loading = document.getElementById('loading-screen');
+                        loading.style.display = 'flex';
+                        
+                        setTimeout(() => {
+                            location.reload();
+                        }, 2000);
+                    }
+
+                    function toggleVoice() {
+                        const indicator = document.getElementById('voice-indicator');
+                        if (indicator.style.display === 'none') {
+                            indicator.style.display = 'flex';
+                            alert('🎤 Commandes vocales activées');
+                        } else {
+                            indicator.style.display = 'none';
+                            alert('🔇 Commandes vocales désactivées');
+                        }
+                    }
+
+                    function navigateTo(url) {
+                        window.location.href = url;
+                    }
+
+                    function applyInsight(button) {
+                        button.innerHTML = '✓ Appliqué';
+                        button.style.background = '#4CAF50';
+                        button.disabled = true;
+                        alert('✅ Insight appliqué avec succès !');
+                    }
+
+                    function showDetails(button) {
+                        alert('📊 Détails de l\'analyse IA disponibles');
+                    }
+
+                    function showNavigation() {
+                        document.querySelector('.navigation-section').scrollIntoView({ 
+                            behavior: 'smooth' 
+                        });
+                    }
+
+                    // Initialize animations
+                    document.addEventListener('DOMContentLoaded', function() {
+                        // Animate progress bars
+                        setTimeout(() => {
+                            const progressElements = document.querySelectorAll('.circular-progress');
+                            progressElements.forEach(element => {
+                                const score = element.dataset.score || 85;
+                                element.style.setProperty('--score', score);
+                            });
+                        }, 500);
+                        
+                        // Animate cards
+                        const cards = document.querySelectorAll('.insight-card, .nav-card');
+                        cards.forEach((card, index) => {
+                            card.style.opacity = '0';
+                            card.style.transform = 'translateY(30px)';
+                            
+                            setTimeout(() => {
+                                card.style.transition = 'all 0.6s ease';
+                                card.style.opacity = '1';
+                                card.style.transform = 'translateY(0)';
+                            }, 200 + index * 100);
+                        });
+                    });
+                </script>
+            </t>
+        </template>
+    </data>
+</odoo>

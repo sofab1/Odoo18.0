@@ -1,0 +1,111 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <!-- Action for the Bijouterie Dashboard - URL Action (Safe) -->
+    <record id="action_bijouterie_dashboard_url_new" model="ir.actions.act_url">
+        <field name="name">Bijouterie Dashboard</field>
+        <field name="url">/custom_dashboard/home</field>
+        <field name="target">self</field>
+    </record>
+
+    <!-- Main menu item for Bijouterie Dashboard (appears in apps) -->
+    <menuitem
+        id="bijouterie_dashboard_menu_root"
+        name="Bijouterie"
+        action="action_bijouterie_dashboard_url_new"
+        web_icon="custom_dashboard,static/description/icon.png"
+        sequence="38"/>
+
+    <!-- Advanced AI Dashboard URL Action -->
+    <record id="action_advanced_ai_dashboard_url" model="ir.actions.act_url">
+        <field name="name">🤖 Dashboard IA Avancé</field>
+        <field name="url">/custom_dashboard/advanced</field>
+        <field name="target">self</field>
+    </record>
+
+    <!-- Advanced AI Dashboard Menu -->
+    <menuitem
+        id="advanced_ai_dashboard_menu"
+        name="🤖 Dashboard IA Avancé"
+        action="action_advanced_ai_dashboard_url_new"
+        parent="bijouterie_dashboard_menu_root"
+        sequence="0"/>
+
+    <!-- AI Dashboard Sub-menus with URL Actions -->
+    <record id="action_ai_production_url" model="ir.actions.act_url">
+        <field name="name">🏭 AI Production Analytics</field>
+        <field name="url">/custom_dashboard/production</field>
+        <field name="target">self</field>
+    </record>
+
+    <record id="action_ai_quality_url" model="ir.actions.act_url">
+        <field name="name">🎯 AI Quality Control</field>
+        <field name="url">/custom_dashboard/quality</field>
+        <field name="target">self</field>
+    </record>
+
+    <record id="action_ai_inventory_url" model="ir.actions.act_url">
+        <field name="name">📦 AI Stock Optimizer</field>
+        <field name="url">/custom_dashboard/inventory</field>
+        <field name="target">self</field>
+    </record>
+
+    <record id="action_ai_predictive_url" model="ir.actions.act_url">
+        <field name="name">🔮 AI Predictive Analytics</field>
+        <field name="url">/custom_dashboard/predictive</field>
+        <field name="target">self</field>
+    </record>
+
+    <record id="action_ai_voice_url" model="ir.actions.act_url">
+        <field name="name">🗣️ AI Voice Commands</field>
+        <field name="url">/custom_dashboard/voice</field>
+        <field name="target">self</field>
+    </record>
+
+    <menuitem
+        id="ai_production_menu"
+        name="🏭 AI Production Analytics"
+        action="action_ai_production_dashboard_url_new"
+        parent="bijouterie_dashboard_menu_root"
+        sequence="1"/>
+
+    <menuitem
+        id="ai_quality_menu"
+        name="🎯 AI Quality Control"
+        action="action_ai_quality_dashboard_url_new"
+        parent="bijouterie_dashboard_menu_root"
+        sequence="2"/>
+
+    <menuitem
+        id="ai_inventory_menu"
+        name="📦 AI Stock Optimizer"
+        action="action_ai_inventory_dashboard_url_new"
+        parent="bijouterie_dashboard_menu_root"
+        sequence="3"/>
+
+    <menuitem
+        id="ai_predictive_menu"
+        name="🔮 AI Predictive Analytics"
+        action="action_ai_predictive_dashboard_url_new"
+        parent="bijouterie_dashboard_menu_root"
+        sequence="4"/>
+
+    <menuitem
+        id="ai_voice_menu"
+        name="🗣️ AI Voice Commands"
+        action="action_ai_voice_dashboard_url_new"
+        parent="bijouterie_dashboard_menu_root"
+        sequence="5"/>
+
+    <!-- Configuration menu -->
+    <menuitem
+        id="bijouterie_dashboard_menu_configuration"
+        name="Configuration"
+        parent="bijouterie_dashboard_menu_root"
+        sequence="150"/>
+
+    <!-- Legacy action for backward compatibility -->
+    <record id="action_custom_dashboard" model="ir.actions.client">
+        <field name="name">Tableau de Bord</field>
+        <field name="tag">custom_dashboard.main</field>
+    </record>
+</odoo>

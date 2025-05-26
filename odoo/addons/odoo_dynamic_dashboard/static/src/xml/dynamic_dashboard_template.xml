@@ -1,0 +1,138 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<templates id="template" xml:space="preserve">
+    <!--DASHBOARD VIEW WITH NAVIGATION-BAR, INTERACTJS TEMPLATE-->
+    <t t-name="odoo_dynamic_dashboard.Dashboard" owl="1">
+        <div class="o_dynamic_dashboard">
+            <div class="o_dashboard_header">
+                <div class="o_dashboard_header_left">
+                    <h1>Dashboard Analytics</h1>
+                    <p>Tableau de bord interactif et moderne</p>
+                </div>
+                <div class="o_dashboard_header_actions">
+                    <button class="o_dashboard_refresh" t-on-click="refreshData">
+                        <i class="fa fa-refresh"></i>
+                        Actualiser
+                    </button>
+                    <button class="o_dashboard_fullscreen">
+                        <i class="fa fa-expand"></i>
+                        Plein écran
+                    </button>
+                </div>
+            </div>
+
+            <div class="modern-navbar" role="navigation">
+                <div class="navbar-content">
+                    <!-- GROUPE GAUCHE -->
+                    <div class="navbar-left-group">
+                        <label class="navbar-items dropdown drop-down-add">
+                            <button class="btn btn-align-items dropdown-add-items dropdown-toggle"
+                                    type="selection" id="dropdownMenuButton"
+                                    data-toggle="dropdown" aria-haspopup="true"
+                                    aria-expanded="false"
+                                    t-on-click="onClickAdd">
+                                <i class="fa fa-plus-circle"/>
+                                <span id="text_add">Ajouter des éléments</span>
+                            </button>
+                            <div class="dropdown-menu dropdown-addblock"
+                                 aria-labelledby="dropdownMenuButton">
+                                <a class="dropdown-item add_block"
+                                   data-type="tile"
+                                   t-on-click="(ev) => this.onClickAddItem(ev)">Tile</a>
+                                <a class="dropdown-item add_block"
+                                   data-type="graph" data-chart_type="bar"
+                                   t-on-click="(ev) => this.onClickAddItem(ev)">Bar Chart</a>
+                                <a class="dropdown-item add_block"
+                                   data-type="graph" data-chart_type="doughnut"
+                                   t-on-click="(ev) => this.onClickAddItem(ev)">Doughnut Chart</a>
+                                <a class="dropdown-item add_block"
+                                   data-type="graph"
+                                   data-chart_type="line"
+                                   t-on-click="(ev) => this.onClickAddItem(ev)">Line Chart</a>
+                                <a class="dropdown-item add_block"
+                                   data-type="graph" data-chart_type="pie"
+                                   t-on-click="(ev) => this.onClickAddItem(ev)">Pie Chart</a>
+                                <a class="dropdown-item add_block"
+                                   data-type="graph"
+                                   data-chart_type="polarArea"
+                                   t-on-click="(ev) => this.onClickAddItem(ev)">Polar Area Chart</a>
+                                <a class="dropdown-item add_block"
+                                   data-type="graph"
+                                   data-chart_type="radar"
+                                   t-on-click="(ev) => this.onClickAddItem(ev)">Radar Chart</a>
+                            </div>
+                        </label>
+
+                        <button class="navbar-items btn-search_edit btn-align-items btn btn-primary layout-switch"
+                                type="button"
+                                id="edit_layout"
+                                t-on-click="(ev) => this.editLayout(ev)">
+                            <i class="fa fa-edit"></i>
+                            Modifier
+                        </button>
+                        <button class="navbar-items btn-search_edit btn btn-primary layout-switch"
+                                type="button"
+                                id="save_layout"
+                                t-on-click="(ev) => this.saveLayout(ev)">
+                            <i class="fa fa-save"></i>
+                            Sauvegarder
+                        </button>
+                    </div>
+
+                    <!-- GROUPE CENTRE - Contrôles de dates -->
+                    <div class="navbar-center-group">
+                        <label for="start-date" class="date-label">
+                            <i class="fa fa-calendar"></i>
+                            Date de début:
+                        </label>
+                        <input type="date" id="start-date" name="start-date" t-on-change="dateFilter"/>
+                        <label for="end-date" class="date-label">
+                            <i class="fa fa-calendar"></i>
+                            Date de fin:
+                        </label>
+                        <input type="date" id="end-date" name="end-date" t-on-change="dateFilter"/>
+                    </div>
+
+                    <!-- GROUPE DROITE - Outils et actions -->
+                    <div class="navbar-right-group">
+                        <div class="o-dropdown dropdown theme">
+                            <select class="form-select"
+                                    t-ref="ThemeSelector"
+                                    t-on-change="onChangeTheme">
+                                <option value="0">Select Theme</option>
+                            </select>
+                        </div>
+
+                        <div class="dashboard_pdf" t-on-click="printPdf">
+                            <i class="bi bi-filetype-pdf"/>
+                        </div>
+
+                        <div class="dashboard_mail" t-on-click="sendMail">
+                            <i class="bi bi-envelope-fill"/>
+                        </div>
+
+                        <div class="search-group">
+                            <i class="fa fa-search" style="color: var(--text-muted); font-size: 14px;"></i>
+                            <input class="form-control" type="text" placeholder="Rechercher dans le dashboard..." id="search-input-chart" aria-label="Search"/>
+                            <span id="searchclear" t-on-click="clearSearch">
+                                <i class="fa fa-times search-clear"/>
+                            </span>
+                            <button class="btn"
+                                    t-on-click="clickSearch"
+                                    type="button">
+                                <i class="fa fa-search"></i>
+                                Rechercher
+                            </button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="o_dashboard_content">
+                <div class="all_items">
+                    <div class="items"/>
+                </div>
+            </div>
+                <!--CONTAINER FOR CONTENT GENERATION :TILE & CHART(FROM DynamicDashboardTile & DynamicDashboardChart-->
+        </div>
+    </t>
+</templates>

@@ -1,0 +1,36 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <!-- Template pour la page d'accueil avec grille d'applications -->
+    <template id="custom_apps_dashboard" name="Applications Dashboard">
+        <t t-call="web.layout">
+            <t t-set="head">
+                <t t-call-assets="web.assets_common" t-js="false"/>
+                <t t-call-assets="web.assets_backend" t-js="false"/>
+                <t t-call-assets="custom_dashboard.assets_dashboard"/>
+            </t>
+            <t t-set="body_classname" t-value="'o_web_client o_home_menu_background'"/>
+            <div class="o_home_menu">
+                <div class="o_apps_dashboard">
+                    <div class="o_apps_dashboard_header">
+                        <h1>Bienvenue sur votre tableau de bord</h1>
+                    </div>
+                    <div class="o_apps_dashboard_content">
+                        <div class="o_apps_container">
+                            <t t-foreach="apps" t-as="app">
+                                <a t-att-href="app['href']" t-att-data-menu-id="app['id']" class="o_app">
+                                    <div class="o_app_icon_wrapper">
+                                        <img t-att-src="app['icon']" t-att-alt="app['name']" class="o_app_icon"/>
+                                    </div>
+                                    <div class="o_caption"><t t-esc="app['name']"/></div>
+                                </a>
+                            </t>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <t t-call-assets="web.assets_common" t-css="false"/>
+            <t t-call-assets="web.assets_backend" t-css="false"/>
+            <t t-call-assets="custom_dashboard.assets_dashboard" t-css="false"/>
+        </t>
+    </template>
+</odoo>

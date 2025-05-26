@@ -1,0 +1,230 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<templates xml:space="preserve">
+
+    <!-- Advanced AI Dashboard Template -->
+    <t t-name="custom_dashboard.AdvancedAIBijouterieDashboard" owl="1">
+        <div class="advanced-ai-dashboard" t-att-class="state.theme">
+
+            <!-- Particle Background -->
+            <div class="particle-background">
+                <canvas id="particle-canvas"></canvas>
+            </div>
+
+            <!-- Loading Screen with AI Animation -->
+            <div t-if="state.isLoading" class="ai-loading-screen">
+                <div class="ai-brain-animation">
+                    <div class="neural-network">
+                        <div class="neuron" t-foreach="[1,2,3,4,5,6,7,8]" t-as="neuron" t-key="neuron"></div>
+                    </div>
+                </div>
+                <div class="loading-text">
+                    <h2>🧠 IA en cours d'analyse...</h2>
+                    <p>Traitement des données avec intelligence artificielle</p>
+                    <div class="progress-bar">
+                        <div class="progress-fill"></div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Main Dashboard Content -->
+            <div t-if="!state.isLoading" class="dashboard-content">
+
+                <!-- Header with AI Status -->
+                <div class="ai-dashboard-header">
+                    <div class="header-left">
+                        <h1 class="dashboard-title">
+                            <span class="ai-icon">🤖</span>
+                            Dashboard IA Bijouterie
+                            <span class="ai-status" t-att-class="state.aiConfidence > 0.8 ? 'high-confidence' : 'medium-confidence'">
+                                IA Active - <t t-esc="Math.round(state.aiConfidence * 100)"/>% Confiance
+                            </span>
+                        </h1>
+                        <div class="real-time-indicator">
+                            <span class="pulse-dot"></span>
+                            Données en temps réel
+                        </div>
+                    </div>
+
+                    <div class="header-controls">
+                        <button class="ai-button voice-control"
+                                t-att-class="state.voiceEnabled ? 'active' : ''"
+                                t-on-click="toggleVoiceRecognition">
+                            <i class="fa fa-microphone"></i>
+                            <span>Commandes Vocales</span>
+                        </button>
+
+                        <button class="ai-button theme-toggle" t-on-click="toggleTheme">
+                            <i t-att-class="state.theme === 'dark' ? 'fa fa-sun-o' : 'fa fa-moon-o'"></i>
+                            <span t-if="state.theme === 'dark'">Mode Clair</span>
+                            <span t-else="">Mode Sombre</span>
+                        </button>
+
+                        <button class="ai-button refresh-btn" t-on-click="refreshAIAnalysis">
+                            <i class="fa fa-refresh"></i>
+                            <span>Actualiser IA</span>
+                        </button>
+                    </div>
+                </div>
+
+                <!-- AI Performance Overview -->
+                <div class="ai-performance-overview">
+                    <div class="performance-card ai-score">
+                        <div class="card-header">
+                            <i class="fa fa-brain"></i>
+                            <span>Score IA Global</span>
+                        </div>
+                        <div class="score-display">
+                            <div class="circular-progress" t-att-data-score="state.performanceScore">
+                                <span class="score-value" t-esc="state.performanceScore"/>
+                                <span class="score-unit">%</span>
+                            </div>
+                        </div>
+                        <div class="score-trend">
+                            <i class="fa fa-arrow-up trend-up"></i>
+                            +5.2% cette semaine
+                        </div>
+                    </div>
+
+                    <div class="performance-card efficiency">
+                        <div class="card-header">
+                            <i class="fa fa-tachometer"></i>
+                            <span>Efficacité IA</span>
+                        </div>
+                        <div class="metric-value" t-esc="state.efficiency + '%'"/>
+                        <div class="metric-chart">
+                            <canvas class="mini-chart" data-type="efficiency"></canvas>
+                        </div>
+                    </div>
+
+                    <div class="performance-card quality">
+                        <div class="card-header">
+                            <i class="fa fa-diamond"></i>
+                            <span>Index Qualité</span>
+                        </div>
+                        <div class="metric-value" t-esc="state.qualityIndex + '%'"/>
+                        <div class="quality-indicator">
+                            <div class="quality-bar" t-att-style="'width: ' + state.qualityIndex + '%'"></div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- AI Insights Section -->
+                <div class="ai-insights-section">
+                    <div class="section-header">
+                        <h2>
+                            <i class="fa fa-lightbulb-o"></i>
+                            Insights IA Avancés
+                        </h2>
+                        <div class="insights-confidence">
+                            Confiance moyenne: <strong t-esc="Math.round(state.aiConfidence * 100) + '%'"/>
+                        </div>
+                    </div>
+
+                    <div class="insights-grid">
+                        <t t-foreach="state.aiInsights" t-as="insight" t-key="insight.id">
+                            <div class="insight-card" t-att-class="'impact-' + insight.impact">
+                                <div class="insight-header">
+                                    <div class="insight-icon" t-att-style="'color: ' + insight.color">
+                                        <i t-att-class="'fa ' + insight.icon"></i>
+                                    </div>
+                                    <div class="insight-meta">
+                                        <h3 t-esc="insight.title"/>
+                                        <div class="confidence-badge">
+                                            <span t-esc="Math.round(insight.confidence * 100) + '% confiance'"/>
+                                        </div>
+                                    </div>
+                                </div>
+
+                                <div class="insight-content">
+                                    <p t-esc="insight.description"/>
+                                    <div class="insight-action">
+                                        <strong>Action recommandée:</strong>
+                                        <span t-esc="insight.action"/>
+                                    </div>
+                                    <div class="insight-impact" t-if="insight.savings">
+                                        <span class="impact-label">Économies potentielles:</span>
+                                        <span class="impact-value" t-esc="insight.savings"/>
+                                    </div>
+                                </div>
+
+                                <div class="insight-actions">
+                                    <button class="action-btn primary">Appliquer</button>
+                                    <button class="action-btn secondary">Détails</button>
+                                </div>
+                            </div>
+                        </t>
+                    </div>
+                </div>
+
+            </div>
+        </div>
+    </t>
+
+    <!-- Main AI Dashboard Template -->
+    <t t-name="custom_dashboard.AIBijouterieDashboard" owl="1">
+        <div class="ai-bijouterie-dashboard" t-att-class="state.theme">
+
+            <!-- Loading Overlay -->
+            <div t-if="state.isLoading" class="loading-overlay">
+                <div class="loading-spinner"></div>
+                <div class="loading-text">Chargement des analyses IA...</div>
+            </div>
+
+            <!-- Dashboard Header -->
+            <div class="dashboard-header">
+                <h1 t-esc="state.data.title"></h1>
+                <div class="header-controls">
+                    <button class="btn btn-primary" t-on-click="refreshData">
+                        <i class="fa fa-refresh"></i> Actualiser
+                    </button>
+                    <button class="btn btn-secondary" t-on-click="toggleTheme">
+                        <i class="fa fa-moon-o"></i> Thème
+                    </button>
+                </div>
+            </div>
+
+            <!-- KPIs Section -->
+            <div class="kpis-section" t-if="state.data.kpis">
+                <div class="row">
+                    <t t-foreach="state.data.kpis" t-as="kpi" t-key="kpi_index">
+                        <div class="col-md-4">
+                            <div class="kpi-card" t-att-class="'kpi-' + kpi.color">
+                                <div class="kpi-value" t-esc="kpi.value"></div>
+                                <div class="kpi-label" t-esc="kpi.label"></div>
+                                <div class="kpi-trend" t-esc="kpi.trend"></div>
+                            </div>
+                        </div>
+                    </t>
+                </div>
+            </div>
+
+            <!-- AI Insights Section -->
+            <div class="insights-section" t-if="state.data.insights">
+                <h3>🤖 Insights IA</h3>
+                <div class="insights-list">
+                    <t t-foreach="state.data.insights" t-as="insight" t-key="insight_index">
+                        <div class="insight-item">
+                            <i class="fa fa-lightbulb-o"></i>
+                            <span t-esc="insight"></span>
+                        </div>
+                    </t>
+                </div>
+            </div>
+
+            <!-- Predictions Section -->
+            <div class="predictions-section" t-if="state.data.predictions">
+                <h3>🔮 Prédictions IA</h3>
+                <div class="predictions-grid">
+                    <t t-foreach="Object.entries(state.data.predictions)" t-as="prediction" t-key="prediction_index">
+                        <div class="prediction-item">
+                            <div class="prediction-label" t-esc="prediction[0]"></div>
+                            <div class="prediction-value" t-esc="prediction[1]"></div>
+                        </div>
+                    </t>
+                </div>
+            </div>
+
+        </div>
+    </t>
+
+</templates>

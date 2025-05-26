@@ -1,0 +1,103 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<templates xml:space="preserve">
+
+    <t t-name="AIAssistant" owl="1">
+        <div class="ai_assistant_container">
+            <div class="ai_header">
+                <div class="d-flex justify-content-between align-items-center">
+                    <h2 class="mb-0">
+                        <i class="fa fa-robot text-primary"/>
+                        🤖 AI Dashboard Assistant
+                    </h2>
+                    <div class="ai_controls">
+                        <button class="btn btn-outline-primary me-2" t-on-click="clearChat">
+                            <i class="fa fa-trash"/> Clear Chat
+                        </button>
+                        <button class="btn btn-primary" t-on-click="showHelp">
+                            <i class="fa fa-question-circle"/> Help
+                        </button>
+                    </div>
+                </div>
+            </div>
+
+            <div class="ai_content">
+                <!-- Chat Messages -->
+                <div class="chat_container" t-ref="chatContainer">
+                    <div class="chat_messages">
+                        <t t-foreach="state.messages" t-as="message" t-key="message_index">
+                            <div t-att-class="'message ' + message.type">
+                                <div class="message_avatar">
+                                    <i t-att-class="message.type === 'user' ? 'fa fa-user' : 'fa fa-robot'"/>
+                                </div>
+                                <div class="message_content">
+                                    <div class="message_text" t-esc="message.text"/>
+                                    <div class="message_time" t-esc="message.time"/>
+                                    <div t-if="message.suggestions" class="message_suggestions">
+                                        <t t-foreach="message.suggestions" t-as="suggestion" t-key="suggestion_index">
+                                            <button class="btn btn-sm btn-outline-primary me-2 mb-2" 
+                                                    t-on-click="() => this.sendMessage(suggestion)">
+                                                <t t-esc="suggestion"/>
+                                            </button>
+                                        </t>
+                                    </div>
+                                </div>
+                            </div>
+                        </t>
+                        
+                        <!-- Typing indicator -->
+                        <div t-if="state.isTyping" class="message ai typing">
+                            <div class="message_avatar">
+                                <i class="fa fa-robot"/>
+                            </div>
+                            <div class="message_content">
+                                <div class="typing_indicator">
+                                    <span></span>
+                                    <span></span>
+                                    <span></span>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Input Area -->
+                <div class="chat_input_container">
+                    <div class="input-group">
+                        <input type="text" 
+                               class="form-control" 
+                               placeholder="Ask me about your dashboard data..."
+                               t-model="state.inputText"
+                               t-on-keydown="onKeyDown"
+                               t-ref="messageInput"/>
+                        <button class="btn btn-primary" 
+                                t-on-click="sendUserMessage"
+                                t-att-disabled="!state.inputText.trim() || state.isTyping">
+                            <i class="fa fa-paper-plane"/>
+                        </button>
+                    </div>
+                    
+                    <!-- Quick Actions -->
+                    <div class="quick_actions mt-2">
+                        <button class="btn btn-sm btn-outline-secondary me-2" 
+                                t-on-click="() => this.sendMessage('Show me sales summary')">
+                            📊 Sales Summary
+                        </button>
+                        <button class="btn btn-sm btn-outline-secondary me-2" 
+                                t-on-click="() => this.sendMessage('What are my top products?')">
+                            🏆 Top Products
+                        </button>
+                        <button class="btn btn-sm btn-outline-secondary me-2" 
+                                t-on-click="() => this.sendMessage('Analyze my performance')">
+                            📈 Performance Analysis
+                        </button>
+                        <button class="btn btn-sm btn-outline-secondary" 
+                                t-on-click="() => this.sendMessage('Generate insights')">
+                            💡 Generate Insights
+                        </button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </t>
+
+</templates>

@@ -1,0 +1,73 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <!-- Root Menu for Analytics Dashboard -->
+    <menuitem id="menu_analytics_root"
+              name="📊 Analytics"
+              sequence="5"
+              web_icon="odoo_dynamic_dashboard,static/description/icon.png"/>
+
+    <!-- Main Dashboard Overview -->
+    <menuitem id="menu_analytics_overview"
+              name="📈 Dashboard Overview"
+              parent="menu_analytics_root"
+              action="action_analytics_overview"
+              sequence="10"/>
+
+    <!-- Business Module Dashboards -->
+    <menuitem id="menu_analytics_sales"
+              name="💰 Sales Analytics"
+              parent="menu_analytics_root"
+              action="action_analytics_sales"
+              sequence="20"/>
+
+    <menuitem id="menu_analytics_production"
+              name="🏭 Production Analytics"
+              parent="menu_analytics_root"
+              action="action_analytics_production"
+              sequence="30"/>
+
+    <menuitem id="menu_analytics_stock"
+              name="📦 Stock Analytics"
+              parent="menu_analytics_root"
+              action="action_analytics_stock"
+              sequence="40"/>
+
+    <menuitem id="menu_analytics_maintenance"
+              name="🔧 Maintenance Analytics"
+              parent="menu_analytics_root"
+              action="action_analytics_maintenance"
+              sequence="50"/>
+
+    <menuitem id="menu_analytics_inventory"
+              name="📋 Inventory Analytics"
+              parent="menu_analytics_root"
+              action="action_analytics_inventory"
+              sequence="60"/>
+
+    <menuitem id="menu_analytics_workshop"
+              name="⚙️ Workshop Analytics"
+              parent="menu_analytics_root"
+              action="action_analytics_workshop"
+              sequence="70"/>
+
+    <menuitem id="menu_analytics_manufacturing"
+              name="🏗️ Manufacturing Orders"
+              parent="menu_analytics_root"
+              action="action_analytics_manufacturing"
+              sequence="80"/>
+
+    <!-- AI Assistant Menu -->
+    <menuitem id="menu_analytics_ai"
+              name="🤖 AI Assistant"
+              parent="menu_analytics_root"
+              action="action_analytics_ai"
+              sequence="90"/>
+
+    <!-- Configuration Menu -->
+    <menuitem id="menu_analytics_config"
+              name="⚙️ Configuration"
+              parent="menu_analytics_root"
+              action="action_analytics_config"
+              sequence="100"/>
+</odoo>
+

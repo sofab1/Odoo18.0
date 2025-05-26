@@ -1,0 +1,56 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <data>
+        <!-- Simple HTML Action for Testing -->
+        <record id="action_ai_production_dashboard_simple" model="ir.actions.act_url">
+            <field name="name">🏭 AI Production Analytics</field>
+            <field name="url">/custom_dashboard/production</field>
+            <field name="target">self</field>
+        </record>
+
+        <!-- Advanced AI Dashboard Action - URL Version (Safe) -->
+        <record id="action_advanced_ai_dashboard_url_new" model="ir.actions.act_url">
+            <field name="name">🤖 Dashboard IA Avancé</field>
+            <field name="url">/custom_dashboard/advanced</field>
+            <field name="target">self</field>
+        </record>
+
+        <!-- AI Dashboard URL Actions (Working Solution) -->
+        <record id="action_ai_production_dashboard_url_new" model="ir.actions.act_url">
+            <field name="name">🏭 AI Production Analytics</field>
+            <field name="url">/custom_dashboard/production</field>
+            <field name="target">self</field>
+        </record>
+
+        <record id="action_ai_quality_dashboard_url_new" model="ir.actions.act_url">
+            <field name="name">🎯 AI Quality Control</field>
+            <field name="url">/custom_dashboard/quality</field>
+            <field name="target">self</field>
+        </record>
+
+        <record id="action_ai_inventory_dashboard_url_new" model="ir.actions.act_url">
+            <field name="name">📦 AI Stock Optimizer</field>
+            <field name="url">/custom_dashboard/inventory</field>
+            <field name="target">self</field>
+        </record>
+
+        <record id="action_ai_predictive_dashboard_url_new" model="ir.actions.act_url">
+            <field name="name">🔮 AI Predictive Analytics</field>
+            <field name="url">/custom_dashboard/predictive</field>
+            <field name="target">self</field>
+        </record>
+
+        <record id="action_ai_voice_dashboard_url_new" model="ir.actions.act_url">
+            <field name="name">🗣️ AI Voice Commands</field>
+            <field name="url">/custom_dashboard/voice</field>
+            <field name="target">self</field>
+        </record>
+
+        <!-- Legacy action for backward compatibility - URL Version (Safe) -->
+        <record id="action_custom_dashboard_url_new" model="ir.actions.act_url">
+            <field name="name">Tableau de Bord</field>
+            <field name="url">/custom_dashboard/advanced</field>
+            <field name="target">self</field>
+        </record>
+    </data>
+</odoo>

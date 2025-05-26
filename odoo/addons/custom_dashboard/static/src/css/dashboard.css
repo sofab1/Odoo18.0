@@ -1,0 +1,173 @@
+/* Styles pour le tableau de bord personnalisé */
+.o_custom_dashboard {
+    padding: 20px;
+    background-color: #f8f9fa;
+    min-height: 100vh;
+}
+
+.dashboard-container {
+    max-width: 1600px;
+    margin: 0 auto;
+}
+
+.dashboard-header {
+    margin-bottom: 30px;
+    padding-bottom: 15px;
+    border-bottom: 1px solid #e0e0e0;
+}
+
+/* Styles pour les tuiles d'applications */
+.app_tile {
+    cursor: pointer;
+    transition: all 0.3s ease;
+    border-radius: 8px;
+}
+
+.app_tile:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 10px 20px rgba(0, 0, 0, 0.1);
+}
+
+.app-icon {
+    width: 48px;
+    height: 48px;
+    object-fit: contain;
+}
+
+/* Styles pour le chargement */
+.o_dashboard_loading {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 300px;
+    font-size: 18px;
+    color: #666;
+}
+
+/* Styles pour les cartes */
+.card {
+    border-radius: 8px;
+    transition: all 0.3s ease;
+}
+
+.card:hover {
+    box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
+}
+
+.card-header {
+    background-color: #fff;
+    border-bottom: 1px solid rgba(0, 0, 0, 0.05);
+}
+
+/* Styles pour les éléments cliquables */
+.production-item, .inventory-item, .workcenter-card {
+    cursor: pointer;
+    transition: background-color 0.2s ease;
+}
+
+.production-item:hover, .inventory-item:hover {
+    background-color: rgba(0, 0, 0, 0.03);
+}
+
+/* Styles pour les filtres */
+.btn-filter {
+    font-size: 0.85rem;
+    padding: 0.25rem 0.5rem;
+}
+
+/* Styles pour les graphiques */
+canvas {
+    max-width: 100%;
+}
+
+/* Styles pour les badges */
+.badge {
+    font-weight: 500;
+    padding: 0.4em 0.6em;
+}
+
+/* Styles pour les sections */
+h2 {
+    font-size: 1.5rem;
+    font-weight: 600;
+    color: #333;
+}
+
+hr {
+    margin-top: 0.5rem;
+    opacity: 0.1;
+}
+
+/* Styles pour les tableaux */
+.table {
+    margin-bottom: 0;
+}
+
+.table th {
+    font-weight: 600;
+    color: #555;
+    border-top: none;
+}
+
+.table-hover tbody tr:hover {
+    background-color: rgba(0, 123, 255, 0.05);
+}
+
+/* Styles pour les barres de progression */
+.progress {
+    background-color: #e9ecef;
+    border-radius: 10px;
+    overflow: hidden;
+}
+
+.progress-bar {
+    background-color: #007bff;
+    border-radius: 10px;
+}
+
+/* Styles pour les ateliers */
+.workcenter-card .card-header {
+    padding: 0.75rem 1rem;
+    border-radius: 8px 8px 0 0;
+}
+
+/* Styles pour les icônes */
+i.fa {
+    width: 1.25em;
+    text-align: center;
+}
+
+/* Styles pour les éléments d'inventaire */
+.inventory-item td {
+    padding: 0.75rem 1rem;
+    vertical-align: middle;
+}
+
+/* Styles pour les filtres de période */
+#period-filter, #jewelry-type-filter {
+    border-radius: 4px;
+    border: 1px solid #ced4da;
+    padding: 0.25rem 0.5rem;
+    font-size: 0.875rem;
+}
+
+/* Styles pour les tooltips */
+.tooltip {
+    font-size: 0.875rem;
+}
+
+/* Styles pour les appareils mobiles */
+@media (max-width: 768px) {
+    .o_custom_dashboard {
+        padding: 10px;
+    }
+
+    .dashboard-header h1 {
+        font-size: 1.5rem;
+    }
+
+    .btn-filter {
+        font-size: 0.75rem;
+        padding: 0.2rem 0.4rem;
+    }
+}
