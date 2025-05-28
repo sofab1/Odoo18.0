@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <!-- Dashboard Mail Wizard Form View -->
+    <record id="view_dashboard_mail_wizard_form" model="ir.ui.view">
+        <field name="name">dashboard.mail.wizard.form</field>
+        <field name="model">dashboard.mail.wizard</field>
+        <field name="arch" type="xml">
+            <form string="Send Dashboard">
+                <group>
+                    <field name="dashboard_id" readonly="1"/>
+                    <field name="partner_ids" widget="many2many_tags"/>
+                    <field name="subject"/>
+                    <field name="body" widget="html"/>
+                </group>
+                <footer>
+                    <button name="action_send_mail" string="Send" type="object" class="btn-primary"/>
+                    <button string="Cancel" class="btn-secondary" special="cancel"/>
+                </footer>
+            </form>
+        </field>
+    </record>
+
+    <!-- Dashboard Mail Wizard Action -->
+    <record id="action_dashboard_mail_wizard" model="ir.actions.act_window">
+        <field name="name">Send Dashboard</field>
+        <field name="res_model">dashboard.mail.wizard</field>
+        <field name="view_mode">form</field>
+        <field name="target">new</field>
+    </record>
+</odoo>

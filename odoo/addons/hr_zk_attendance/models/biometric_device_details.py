@@ -252,6 +252,84 @@ class BiometricDeviceDetails(models.Model):
                 raise UserError(_('Unable to connect, please check the'
                                   'parameters and network connections.'))
 
+    def action_import_employees(self):
+        """Function to import all employees from the biometric device"""
+        _logger.info("++++++++++++Importing Employees from Device++++++++++++++++++++++")
+
+        for info in self:
+            machine_ip = info.device_ip
+            zk_port = info.port_number
+            try:
+                # Connecting with the device with the ip and port provided
+                zk = ZK(machine_ip, port=zk_port, timeout=15,
+                        password=0,
+                        force_udp=False, ommit_ping=False)
+            except NameError:
+                raise UserError(
+                    _("Pyzk module not Found. Please install it"
+                      "with 'pip3 install pyzk'."))
+
+            conn = self.device_connect(zk)
+            if conn:
+                conn.disable_device()  # Device Cannot be used during this time.
+
+                try:
+                    # Get all users from the device
+                    users = conn.get_users()
+                    _logger.info(f"Found {len(users)} users in the device")
+
+                    imported_count = 0
+                    updated_count = 0
+
+                    for user in users:
+                        # Check if employee already exists
+                        existing_employee = self.env['hr.employee'].search([
+                            ('device_id_num', '=', user.user_id)
+                        ], limit=1)
+
+                        # Prepare employee data
+                        employee_data = {
+                            'device_id_num': user.user_id,
+                            'name': user.name or f"Employee {user.user_id}",
+                        }
+
+                        # Add additional fields if available
+                        if hasattr(user, 'card') and user.card:
+                            employee_data['identification_id'] = user.card
+
+                        if existing_employee:
+                            # Update existing employee
+                            existing_employee.write(employee_data)
+                            updated_count += 1
+                            _logger.info(f"Updated employee: {user.name} (ID: {user.user_id})")
+                        else:
+                            # Create new employee
+                            new_employee = self.env['hr.employee'].create(employee_data)
+                            imported_count += 1
+                            _logger.info(f"Created new employee: {user.name} (ID: {user.user_id})")
+
+                    conn.enable_device()
+                    conn.disconnect()
+
+                    return {
+                        'type': 'ir.actions.client',
+                        'tag': 'display_notification',
+                        'params': {
+                            'message': f'Successfully imported {imported_count} new employees and updated {updated_count} existing employees from the device.',
+                            'type': 'success',
+                            'sticky': True
+                        }
+                    }
+
+                except Exception as e:
+                    conn.enable_device()
+                    conn.disconnect()
+                    _logger.error(f"Error importing employees: {str(e)}")
+                    raise UserError(f"Error importing employees: {str(e)}")
+            else:
+                raise UserError(_('Unable to connect, please check the'
+                                  'parameters and network connections.'))
+
     def action_restart_device(self):
         """For restarting the device"""
         zk = ZK(self.device_ip, port=self.port_number, timeout=15,

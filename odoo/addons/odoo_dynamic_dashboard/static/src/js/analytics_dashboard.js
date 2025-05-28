@@ -343,3 +343,8 @@ class AnalyticsDashboard extends Component {
 }
 
 registry.category("actions").add("analytics_dashboard", AnalyticsDashboard);
+
+// Add compatibility for old action names that might exist in database
+registry.category("actions").add("DashboardSummary", AnalyticsDashboard);
+registry.category("actions").add("odoo_dynamic_dashboard.dashboard", AnalyticsDashboard);
+registry.category("actions").add("OdooDynamicDashboard", AnalyticsDashboard);

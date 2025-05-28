@@ -172,4 +172,3 @@ DynamicDashboardChart.template = xml`
             <canvas t-ref="chart"></canvas>
         </div>
     </div>`;
-
