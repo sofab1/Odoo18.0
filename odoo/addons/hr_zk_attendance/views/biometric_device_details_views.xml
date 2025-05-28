@@ -22,10 +22,13 @@
                     <button name="action_set_timezone" string=" Set Time"
                             type="object" class="oe_highlight"/>
                     <button name="action_import_employees"
-                            string="Import Employees"
+                            string="Import Employees Only"
+                            type="object" class="oe_highlight"/>
+                    <button name="action_import_employees_and_attendance"
+                            string="Import Employees + Attendance"
                             type="object" class="oe_highlight"/>
                     <button name="action_download_attendance"
-                            string="Download Data"
+                            string="Download Attendance Only"
                             type="object" class="oe_highlight"/>
                     <button name="action_clear_attendance" string="Clear Data"
                             type="object" class="oe_highlight"

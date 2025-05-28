@@ -252,6 +252,157 @@ class BiometricDeviceDetails(models.Model):
                 raise UserError(_('Unable to connect, please check the'
                                   'parameters and network connections.'))
 
+    def action_import_employees_and_attendance(self):
+        """Function to import all employees and their attendance from the biometric device"""
+        _logger.info("++++++++++++Importing Employees and Attendance from Device++++++++++++++++++++++")
+
+        for info in self:
+            machine_ip = info.device_ip
+            zk_port = info.port_number
+            try:
+                # Connecting with the device with the ip and port provided
+                zk = ZK(machine_ip, port=zk_port, timeout=15,
+                        password=0,
+                        force_udp=False, ommit_ping=False)
+            except NameError:
+                raise UserError(
+                    _("Pyzk module not Found. Please install it"
+                      "with 'pip3 install pyzk'."))
+
+            conn = self.device_connect(zk)
+            if conn:
+                conn.disable_device()  # Device Cannot be used during this time.
+
+                try:
+                    # Get all users from the device
+                    users = conn.get_users()
+                    _logger.info(f"Found {len(users)} users in the device")
+
+                    # Get attendance data
+                    attendance_records = conn.get_attendance()
+                    _logger.info(f"Found {len(attendance_records)} attendance records in the device")
+
+                    imported_count = 0
+                    updated_count = 0
+                    attendance_count = 0
+
+                    # First, import/update employees
+                    for user in users:
+                        # Check if employee already exists
+                        existing_employee = self.env['hr.employee'].search([
+                            ('device_id_num', '=', user.user_id)
+                        ], limit=1)
+
+                        # Prepare employee data
+                        employee_data = {
+                            'device_id_num': user.user_id,
+                            'name': user.name or f"Employee {user.user_id}",
+                        }
+
+                        # Add additional fields if available
+                        if hasattr(user, 'card') and user.card:
+                            employee_data['identification_id'] = user.card
+
+                        if existing_employee:
+                            # Update existing employee
+                            existing_employee.write(employee_data)
+                            updated_count += 1
+                            _logger.info(f"Updated employee: {user.name} (ID: {user.user_id})")
+                        else:
+                            # Create new employee
+                            self.env['hr.employee'].create(employee_data)
+                            imported_count += 1
+                            _logger.info(f"Created new employee: {user.name} (ID: {user.user_id})")
+
+                    # Then, import attendance data
+                    if attendance_records:
+                        zk_attendance = self.env['zk.machine.attendance']
+                        hr_attendance = self.env['hr.attendance']
+
+                        for each in attendance_records:
+                            # Find the employee
+                            employee = self.env['hr.employee'].search([
+                                ('device_id_num', '=', each.user_id)
+                            ], limit=1)
+
+                            if employee:
+                                # Convert timestamp
+                                atten_time = each.timestamp
+                                local_tz = pytz.timezone(
+                                    self.env.user.partner_id.tz or 'GMT')
+                                local_dt = local_tz.localize(atten_time, is_dst=None)
+                                utc_dt = local_dt.astimezone(pytz.utc)
+                                utc_dt = utc_dt.strftime("%Y-%m-%d %H:%M:%S")
+                                atten_time = datetime.datetime.strptime(
+                                    utc_dt, "%Y-%m-%d %H:%M:%S")
+                                atten_time = fields.Datetime.to_string(atten_time)
+
+                                # Check for duplicates
+                                duplicate_atten_ids = zk_attendance.search([
+                                    ('device_id_num', '=', each.user_id),
+                                    ('punching_time', '=', atten_time)
+                                ])
+
+                                if not duplicate_atten_ids:
+                                    # Create ZK attendance record
+                                    zk_attendance.create({
+                                        'employee_id': employee.id,
+                                        'device_id_num': each.user_id,
+                                        'attendance_type': str(each.status),
+                                        'punch_type': str(each.punch),
+                                        'punching_time': atten_time,
+                                        'address_id': info.address_id.id
+                                    })
+
+                                    # Create HR attendance record
+                                    att_var = hr_attendance.search([
+                                        ('employee_id', '=', employee.id),
+                                        ('check_out', '=', False)
+                                    ])
+
+                                    if each.punch == 0:  # check-in
+                                        if not att_var:
+                                            hr_attendance.create({
+                                                'employee_id': employee.id,
+                                                'check_in': atten_time
+                                            })
+                                            attendance_count += 1
+                                    elif each.punch == 1:  # check-out
+                                        if len(att_var) == 1:
+                                            att_var.write({
+                                                'check_out': atten_time
+                                            })
+                                        else:
+                                            att_var1 = hr_attendance.search([
+                                                ('employee_id', '=', employee.id)
+                                            ])
+                                            if att_var1:
+                                                att_var1[-1].write({
+                                                    'check_out': atten_time
+                                                })
+
+                    conn.enable_device()
+                    conn.disconnect()
+
+                    return {
+                        'type': 'ir.actions.client',
+                        'tag': 'display_notification',
+                        'params': {
+                            'message': f'Successfully imported {imported_count} new employees, updated {updated_count} existing employees, and imported {attendance_count} attendance records from the device.',
+                            'type': 'success',
+                            'sticky': True
+                        }
+                    }
+
+                except Exception as e:
+                    conn.enable_device()
+                    conn.disconnect()
+                    _logger.error(f"Error importing data: {str(e)}")
+                    raise UserError(f"Error importing data: {str(e)}")
+            else:
+                raise UserError(_('Unable to connect, please check the'
+                                  'parameters and network connections.'))
+
     def action_import_employees(self):
         """Function to import all employees from the biometric device"""
         _logger.info("++++++++++++Importing Employees from Device++++++++++++++++++++++")
@@ -304,7 +455,7 @@ class BiometricDeviceDetails(models.Model):
                             _logger.info(f"Updated employee: {user.name} (ID: {user.user_id})")
                         else:
                             # Create new employee
-                            new_employee = self.env['hr.employee'].create(employee_data)
+                            self.env['hr.employee'].create(employee_data)
                             imported_count += 1
                             _logger.info(f"Created new employee: {user.name} (ID: {user.user_id})")
 
